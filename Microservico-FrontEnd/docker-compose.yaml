@@ -1,0 +1,89 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
+  CodeProjectAI:
+    image: codeproject/ai-server
+    container_name: "CodeProjectAI"
+    ports:
+      - "32168:32168"
+    environment:
+      - TZ=America/Toronto
+    volumes:
+      - cpaidata:/etc/codeproject/ai
+      - cpaimodules:/app/modules
+    restart: unless-stopped
+
+  naming:
+    image: appnaming:latest
+    build: ../Naming-server
+    ports:
+      - "8761:8761"
+
+  gateway:
+    image: appgateway:latest
+    build: ../API-Cloud-Gateway
+    ports:
+      - "8755:8755"
+    environment:
+      JAVA_OPTS: "-DEUREKA_SERVER_URL=http://naming:8761/eureka"
+    depends_on:
+      - naming
+      - db
+
+  frontend-mvc:
+    image: appfrontend:latest
+    build: .
+    ports:
+      - "8020"
+    environment:
+      JAVA_OPTS: "-DEUREKA_SERVER_URL=http://naming:8761/eureka"
+    depends_on:
+      - naming
+      - db
+      - gateway
+    deploy:
+      mode: replicated
+      replicas: 3
+
+  utilizadores:
+    image: apputilizadores:latest
+    build: ../Microservico-Utilizadores
+    ports:
+      - "8030:8030"
+    environment:
+      JAVA_OPTS: "-DEUREKA_SERVER_URL=http://naming:8761/eureka"
+    depends_on:
+      - naming
+      - db
+
+  animais:
+    image: appanimais:latest
+    build: ../Microservico-animais
+    ports:
+      - "8010:8010"
+    environment:
+      JAVA_OPTS: "-DEUREKA_SERVER_URL=http://naming:8761/eureka"
+    depends_on:
+      - naming
+      - db
+
+volumes:
+  cpaidata:
+  cpaimodules:
+  my-db:
+
+

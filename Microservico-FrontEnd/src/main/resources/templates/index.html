@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microserviço FrontEnd</title>
+    <style>
+
+        .formulario {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            margin: 50px auto;
+            width: 500px;
+            padding: 20px;
+        }
+
+        .imagem img {
+            display: block;
+            margin: 0 auto;
+            width: 120px;
+            height: 90px;
+
+        }
+
+
+        .social-login img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .social-login .rede1,
+        .social-login .rede2,
+        .social-login .rede3 {
+            display: block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .social-login img {
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .msg,
+        .msg2 {
+            background-color: #f3fab5;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+
+
+        }
+
+
+        button {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .button:hover {
+            background-color: #0069d9;
+        }
+
+
+        .forgot-password,
+        .msg2 p {
+            text-decoration: underline;
+            color: blue;
+            cursor: pointer;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        #login img {
+            margin-top: 50px;
+            width: 100%;
+            height: 80%;
+        }
+
+        body:before {
+            content: "";
+            display: flex;
+            position: fixed;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("/login_backgroung.jpg");
+            background-size: cover;
+            opacity: 0.8;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="row">
+
+    <div class="formulario">
+
+        <div class="msg">
+            <h1>Iniciar Sessão</h1>
+        </div>
+
+        <div class="imagem">
+            <p>Nature is our Future</p><img src="icon_login.webp"><br>
+        </div>
+        <form method="post" th:action="@{/login}">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="E-mail" required><br>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Password" required><br>
+            <div th:if="${param.pass_invalid}">
+                <div class="alert alert-danger">
+                    Password ou Email incorreto!</div>
+            </div>
+            <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                <input type="checkbox" checked="checked" />
+
+            </label><br>
+
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <p><a href="#" class="forgot-password">Esqueceu sua senha?</a></p>
+
+
+
+
+
+        <div class="social-login">
+            <p> ---------------OU----------------</p>
+            <div class="rede1">
+                <img src="face.png"> Facebook
+            </div>
+            <div class="rede2">
+                <img src="twt.png"> Twitter
+
+            </div>
+            <div class="rede3">
+                <img src="google.png"> Google
+            </div>
+        </div>
+
+        <div class="msg2">
+            <h5>Não tem uma conta? <a th:href="@{/formregistar}">Crie uma conta</a>
+            </h5>
+        </div>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

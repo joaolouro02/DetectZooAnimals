@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <title>Sistema de Gestão de Animais</title>
+
+    <style>
+        .animal-name {
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
+        .frase{
+            font-size: 20px;
+            color: green;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .animal-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+
+<body>
+<header class="p-3 text-bg-dark">
+    <div class="container">
+
+        <p>Utilizador: <span th:text="${nome}"></span></p>
+        <p>Role do Utilizador: <span th:text="${role}"></span></p>
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a class="navbar-brand p-3" href="#" style="color: green;">Nature World</a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            </ul>
+
+            <div class="text-end">
+
+                <a class="btn btn-outline-dark" th:if="${role == 'ROLE_ADMIN'}" th:href="@{/admin/utilizadores}">Admin Utilizadores</a>
+                <a class="btn btn-warning" th:if="${role == 'ROLE_ADMIN'}" th:href="@{/admin/animais}">Admin Animais</a>
+                <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</header>
+
+
+<section class="my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h3>Upload Ficheiro</h3>
+                <p th:text="${mensagem}" th:if="${mensagem ne null}" class="alert alert-primary"></p>
+                <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="imagem" class="form-control-file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Identificar Animal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="animais">
+    <p class="frase">Descobre os nossos Animais</p>
+    <div class="animal-container">
+        <div th:each="animalEntry : ${animais}" style="margin-right: 20px;">
+            <p class="animal-name" th:text="${animalEntry.key}"></p>
+            <img th:src="${animalEntry.value}" alt="Imagem do animal" style="max-width: 100px; max-height: 100px";><br>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id da Tarefa</th>
+            <th scope="col">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form th:each="tarefa : ${tarefas}" method="post" th:action="@{/detalhes-tarefa}">
+            <input type="hidden" name="tarefaId" th:value="${tarefa.id}" />
+            <tr>
+                <td th:text="${tarefa.id}"></td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Ver Detalhes</button>
+                </td>
+            </tr>
+        </form>
+
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
+</body>
+</html>

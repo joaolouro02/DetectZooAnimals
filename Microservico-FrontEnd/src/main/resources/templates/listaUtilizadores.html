@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Sistema de Gestão de Utilizadores</title>
+</head>
+<body>
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a class="navbar-brand p-3" href="paginaInicial" style="color: green;">Nature World</a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            </ul>
+            <div class="text-end">
+                <a class="btn btn-warning" th:href="@{/admin/utilizadores}">Admin Utilizadores</a>
+                <a class="btn btn-success" th:href="@{/admin/animais}">Admin Tarefas</a>
+                <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+        <div>
+
+            <p>Utilizador: <span th:text="${nome}"></span></p>
+            <p>Role do Utilizador: <span th:text="${role}"></span></p>
+
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Content here -->
+    <h3 th:text="${titulo}">Listagem das Contas dos Utilizadores</h3>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="utilizador : ${utilizadores}" th:if="${utilizador.role != 'ROLE_ADMIN'}">
+            <td th:text="${utilizador.nome}"></td>
+            <td th:text="${utilizador.email}"></td>
+            <td th:text="${utilizador.role}"></td>
+            <td>
+                <form th:action="@{'/admin/contas/' + ${utilizador.email}}" method="post">
+                    <button type="submit" class="btn btn-danger">Encerrar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

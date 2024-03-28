@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Detalhes da Tarefa</h2>
+
+<p>Nome do arquivo: <span th:text="${fileName}"></span></p>
+<p>ID da Tarefa: <span th:text="${tarefa.id}"></span></p>
+<p>Estado da Tarefa: <span th:text="${tarefa.state}"></span></p>
+<p>Início da Tarefa: <span th:text="${tarefa.inicio}"></span></p>
+<p>Fim da Tarefa: <span th:text="${tarefa.fim}"></span></p>
+<p>Duração da Tarefa: <span th:text="${tarefa.duracao}"></span></p>
+<p>Animal: <span th:text="${tarefa.identifiedObjects}"></span></p>
+
+<img th:src="@{'/images/' + ${fileName}}" alt="Imagem da tarefa" style="max-width: 500px; max-height: 500px";>
+</body>
+</html>
