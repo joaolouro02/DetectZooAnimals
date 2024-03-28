@@ -1,5 +1,5 @@
 # DetectZooAnimals
-Detetor de animais 🐶 com CodeProjectAI, Docker 🐳 e Spring Framework 🍃
+Detector of animals 🐶 with CodeProjectAI, Docker 🐳 and Spring Framework 🍃
 
 ---
 ## Technologies
@@ -18,6 +18,18 @@ Detetor de animais 🐶 com CodeProjectAI, Docker 🐳 e Spring Framework 🍃
 ![Arquitetura](imagens/Architecture.png)
 
 ## Screens
+## Screens
+## Screens
+
+<div style="display: flex; flex-wrap: wrap;">
+    <img src="imagens/usersPage.png" alt="usersPage" width="400" style="margin-right: 10px;"/>
+    <img src="imagens/usersDetection.png" alt="usersDetection" width="400" style="margin-left: 10px;"/>
+</div>
+
+<img src="imagens/signUp.png" alt="signUp" width="200"/>
+<img src="imagens/login.png" alt="login" width="200"/>
+<img src="imagens/inicialPage.png" alt="inicialPage" width="200"/>
+<img src="imagens/detection.png" alt="detection" width="200"/>
 ![usersPage](imagens/usersPage.png)
 ![usersDetection](imagens/usersDetection.png)
 ![signUp](imagens/signUp.png)
